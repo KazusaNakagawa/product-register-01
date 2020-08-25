@@ -43,26 +43,21 @@ $ dokcer-cpmpose ps
 $ docker-compose exec web bash
 ```
 
-### 同じimage名で更新したfileをbuild
+### 同じimage名で更新した時.fileをbuild
 ```
 $ docker-compose up --build -d
 ```
 
-## rails cmd
+## rails cmd 必要に応じて
 - server up
 ```
 $ rails s -b 0.0.0.0
 ```
-
-- ActiveRecord::NoDatabaseError: データベースがない
+- create db
 ```
-> db 作る
 $ rails db:create
 ```
-
-- ActiveRecord::PendingMigrationError
-  - Migrations are pending. To resolve this issue, run: bin/rails db:migrate RAILS_ENV=development
-
+- migrate
 ```
 $ rails db:migrate
 ```
