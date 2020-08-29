@@ -3,25 +3,30 @@ version: '3'
 volumes:
   db-data:
  
+# rails service
 services:
   web:
     build: .
     ports:
       - '3000:3000'
+    # 相対pass
     volumes:
       - '.:/product-register'
-    environment:
-      - 'DATABASE_PASSWORD=postgres'
+    # environment:
+    #   - 'DATABASE_PASSWORD=postgres'
+    # -it
     tty: true
     stdin_open: true
-    depends_on:
-      - db
-    links:
-      - db
+
+    # databese service
+  #   depends_on:
+  #     - db
+  #   links:
+  #     - db
  
-  db:
-    image: postgres
-    volumes:
-      - 'db-data:/var/lib/postgresql/data'
-    environment:
-      - 'POSTGRES_HOST_AUTH_METHOD=trust'
+  # db:
+  #   image: postgres
+  #   volumes:
+  #     - 'db-data:/var/lib/postgresql/data'
+  #   environment:
+  #     - 'POSTGRES_HOST_AUTH_METHOD=trust'
