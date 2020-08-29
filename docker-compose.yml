@@ -12,21 +12,25 @@ services:
     # 相対pass
     volumes:
       - '.:/product-register'
-    # environment:
-    #   - 'DATABASE_PASSWORD=postgres'
+    environment:
+      # ホントは良くない見えちゃう
+      - 'DATABASE_PASSWORD=postgres'
     # -it
     tty: true
     stdin_open: true
 
-    # databese service
-  #   depends_on:
-  #     - db
-  #   links:
-  #     - db
+    # databese service: webより先に作るためdbコンテナが先
+    # web と db　つなげるため
+    depends_on:
+      - db
+    # host: db acsess
+    links:
+      - db
  
-  # db:
-  #   image: postgres
-  #   volumes:
-  #     - 'db-data:/var/lib/postgresql/data'
-  #   environment:
-  #     - 'POSTGRES_HOST_AUTH_METHOD=trust'
+  db:
+    image: postgres
+    # hostにデータを共通して保管する
+    volumes:
+      - 'db-data:/var/lib/postgresql/data'
+    environment:
+      - 'POSTGRES_HOST_AUTH_METHOD=trust'
