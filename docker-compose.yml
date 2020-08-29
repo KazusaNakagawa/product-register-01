@@ -3,24 +3,33 @@ version: '3'
 volumes:
   db-data:
  
+# rails service
 services:
   web:
     build: .
     ports:
       - '3000:3000'
+    # 相対pass
     volumes:
       - '.:/product-register'
     environment:
+      # ホントは良くない見えちゃう
       - 'DATABASE_PASSWORD=postgres'
+    # -it
     tty: true
     stdin_open: true
+
+    # databese service: webより先に作るためdbコンテナが先
+    # web と db　つなげるため
     depends_on:
       - db
+    # host: db acsess
     links:
       - db
  
   db:
     image: postgres
+    # hostにデータを共通して保管する
     volumes:
       - 'db-data:/var/lib/postgresql/data'
     environment:
