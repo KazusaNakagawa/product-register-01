@@ -1,4 +1,10 @@
 class ArticlesController < ApplicationController
+
+	# Accsece control 
+	http_basic_authenticate_with name: ENV["SECRET_KEY_NAME"], 
+															 password: ENV["SECRET_KEY_PASSWORD"], 
+															 except: [:index, :show]
+
 	def index
     @articles = Article.all
   end
